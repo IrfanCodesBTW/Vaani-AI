@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Vaani AI</title>
+<meta name="description" content="Vaani AI. AI voice agents, telephony, and provider management in one secure workspace." />
+<meta name="theme-color" content="#000000" />
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/assets/brand.css?v=20260904-cream" />
+<link rel="stylesheet" href="/assets/app.css?v=20260905-nav1" />
+</head>
+<body class="grain">
+
+<!-- Background atmosphere (shared with marketing for one cohesive product) -->
+<div class="atmos" aria-hidden="true">
+  <span class="glow g1"></span><span class="glow g2"></span><span class="glow g3"></span>
+</div>
+
+<!-- No-JS notice. The console is an authenticated SPA and needs JavaScript. -->
+<noscript>
+  <div class="nojs">
+    <strong>JavaScript is required.</strong>
+    The Vaani AI console is an interactive app. Please enable JavaScript to sign in and manage your agents.
+  </div>
+</noscript>
+
+<!-- App root. Everything below is rendered by app.js. The skeleton here keeps the
+     first paint premium even before scripts run. It is replaced on boot. -->
+<div id="app" class="app-root" aria-busy="true">
+  <div class="boot">
+    <div class="boot-mark" aria-hidden="true">
+      <svg viewBox="0 0 40 40" width="40" height="40">
+        <rect x="3" y="3" width="34" height="34" rx="11" fill="#1F1F1F" stroke="#B9FF66" stroke-width="1.5"/>
+        <path d="M12 12l8 16 8-16h-4.5l-3.5 8.5-3.5-8.5H12z" fill="#B9FF66"/>
+      </svg>
+    </div>
+    <div class="boot-text">Starting Vaani AI<span class="spin boot-spin"></span></div>
+  </div>
+</div>
+
+<!-- Toast stack -->
+<div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
+
+<!-- Modal host -->
+<div id="modal-host" class="modal-host hide" aria-hidden="true"></div>
+
+<script src="/assets/app.js?v=20260905-nav1" defer></script>
+</body>
+</html>

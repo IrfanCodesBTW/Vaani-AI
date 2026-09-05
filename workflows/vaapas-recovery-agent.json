@@ -1,0 +1,144 @@
+{
+  "nodes": [
+    {
+      "id": "0",
+      "type": "globalNode",
+      "position": { "x": -380, "y": 420 },
+      "data": {
+        "name": "VaapasAI Recovery Global",
+        "allow_interrupt": true,
+        "prompt": "You are VaapasAI, a warm, respectful revenue-recovery voice agent for Indian merchants and lenders. Speak naturally in Hindi, Hinglish, or English based on the customer's preference. Keep every reply to one or two short spoken sentences. Never threaten, shame, or pressure. Respect opt-out requests immediately. Your goals: explain why you are calling, understand the payment issue, offer only the recovery action provided by the system (payment link, reminder, approved offer, or EMI reschedule), capture promise-to-pay details when relevant, and close politely. Do not invent amounts, due dates, discounts, policies, or customer data. If unsure, offer a human callback."
+      },
+      "measured": { "width": 320, "height": 128 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "1",
+      "type": "startCall",
+      "position": { "x": 120, "y": 40 },
+      "data": {
+        "name": "Greeting",
+        "allow_interrupt": true,
+        "add_global_prompt": true,
+        "delayed_start": false,
+        "is_start": true,
+        "prompt": "Greet in Hindi or Hinglish first. Introduce yourself as VaapasAI, mention this is about their pending payment, and ask if now is a good time to talk."
+      },
+      "measured": { "width": 320, "height": 128 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "2",
+      "type": "agentNode",
+      "position": { "x": 120, "y": 260 },
+      "data": {
+        "name": "Understand Issue",
+        "allow_interrupt": true,
+        "add_global_prompt": true,
+        "extraction_enabled": false,
+        "extraction_prompt": "",
+        "extraction_variables": [],
+        "prompt": "Listen for why payment failed or was missed. Ask one short clarifying question at a time about amount confusion, cash flow, technical issue, or dispute. Stay empathetic."
+      },
+      "measured": { "width": 320, "height": 128 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "3",
+      "type": "agentNode",
+      "position": { "x": 120, "y": 480 },
+      "data": {
+        "name": "Offer Solution",
+        "allow_interrupt": true,
+        "add_global_prompt": true,
+        "extraction_enabled": false,
+        "extraction_prompt": "",
+        "extraction_variables": [],
+        "prompt": "Offer the appropriate recovery path: send payment link on SMS or WhatsApp, retry UPI or card, approved partial payment if allowed, or EMI reschedule. Only mention options that fit what the customer said. Confirm the channel they prefer."
+      },
+      "measured": { "width": 320, "height": 128 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "4",
+      "type": "agentNode",
+      "position": { "x": 120, "y": 700 },
+      "data": {
+        "name": "Capture Outcome",
+        "allow_interrupt": true,
+        "add_global_prompt": true,
+        "extraction_enabled": true,
+        "extraction_prompt": "Capture payment outcome: paid now, promise-to-pay amount and date, refused, dispute, wrong number, or opt-out.",
+        "extraction_variables": [
+          { "name": "outcome", "type": "string", "description": "paid_now | promise_to_pay | refused | dispute | wrong_number | opt_out | callback_requested" },
+          { "name": "promised_amount", "type": "string", "description": "Amount customer agreed to pay later, if any" },
+          { "name": "promised_date", "type": "string", "description": "Date customer agreed to pay, if any" },
+          { "name": "preferred_channel", "type": "string", "description": "SMS, WhatsApp, UPI, card, or other" },
+          { "name": "issue_reason", "type": "string", "description": "Why payment was missed" },
+          { "name": "notes", "type": "string", "description": "Anything for human review" }
+        ],
+        "prompt": "Summarize the agreed next step in one sentence. If they will pay later, confirm amount and date. If they paid or will pay now, confirm you are sending the link. If they opt out, confirm respectfully and end."
+      },
+      "measured": { "width": 320, "height": 128 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "5",
+      "type": "endCall",
+      "position": { "x": 120, "y": 920 },
+      "data": {
+        "name": "Close",
+        "allow_interrupt": false,
+        "add_global_prompt": true,
+        "extraction_enabled": false,
+        "extraction_prompt": "",
+        "extraction_variables": [],
+        "is_end": true,
+        "prompt": "Thank them politely and end the call."
+      },
+      "measured": { "width": 320, "height": 128 },
+      "selected": false,
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1-2",
+      "source": "1",
+      "target": "2",
+      "type": "custom",
+      "animated": true,
+      "data": { "label": "Caller replies", "condition": "Move here after the caller responds to the greeting." }
+    },
+    {
+      "id": "e2-3",
+      "source": "2",
+      "target": "3",
+      "type": "custom",
+      "animated": true,
+      "data": { "label": "Issue understood", "condition": "Move here once the payment issue is clear enough to offer a solution." }
+    },
+    {
+      "id": "e3-4",
+      "source": "3",
+      "target": "4",
+      "type": "custom",
+      "animated": true,
+      "data": { "label": "Solution offered", "condition": "Move here after offering the recovery action." }
+    },
+    {
+      "id": "e4-5",
+      "source": "4",
+      "target": "5",
+      "type": "custom",
+      "animated": true,
+      "data": { "label": "Outcome captured", "condition": "Move here when the next step is clear or the caller opts out." }
+    }
+  ],
+  "viewport": { "x": 150, "y": 30, "zoom": 0.55 }
+}

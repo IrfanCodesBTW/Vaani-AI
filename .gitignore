@@ -1,0 +1,33 @@
+.env
+.env.local
+.env.run
+*.log
+test_*.log
+data/
+dashboard/data/
+node_modules/
+node_modules.nosync/
+.DS_Store
+*.pem
+*.key
+/work/
+
+# Agent/interim artifacts — never push session scratch.
+.agents/
+.cursor/
+
+# Local runtime checkouts and generated compose state. The verified Rumik
+# overlay source in rumik-overlay-local/ remains intentionally trackable.
+# dograh-local/ is kept on disk for the local Docker workflow (see
+# scripts/README.md) but remains gitignored as a nested vendor checkout
+# with its own .git. Track scripts/ instead.
+dograh-official/
+local-dograh/
+dograh-local/
+
+# Dashboard challenger/interim tests (keep canonical *.test.js only).
+dashboard/test/challenger*/
+dashboard/test/test_m3_*
+dashboard/test/test_m2_responsive*
+dashboard/test/challenger_m3_*
+dashboard/package-lock.json
